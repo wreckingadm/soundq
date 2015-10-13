@@ -1,0 +1,16 @@
+/*********************************************************/
+/* SoundQ
+ * © 2015 BOXdev.com
+ * Queued audio playback with priority and channel support for the web
+ * https://github.com/wreckingadm/soundq-js
+ *
+ * Copyright 2015 BOXdev.com, wreckreation.org
+/*********************************************************/
+
+
+/*********************************************************/
+/* Globals
+/*********************************************************/
+body {
+   background-color: #fff;
+}
