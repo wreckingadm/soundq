@@ -18,7 +18,26 @@ var SOUNDQ = SOUNDQ || {};
 /********************************************************************
  * When the page loads draw our initial script component.
  */
-$( window ).load( function()
+//$( window ).load( function()
+$(document).ready( function()
 {
-   //TODO
+   $(document).on("click", "a", function(event) {
+      event.preventDefault();
+      /*
+      var dataUrl = $(this).attr("href");
+      if (dataUrl != "") {
+         loadPage(dataUrl);
+      }
+      */
+   });
+
+
+   $( '#audio_play' ).click( function() {
+      $( '#audio_demo' ).trigger( 'play' );
+      //$( '#audio_demo' ).trigger( 'load' );
+   });
+
+   $( "#audio_demo" ).bind( "load", function() {
+      //$( '#audio_demo' ).trigger( 'play' );
+   });
 });

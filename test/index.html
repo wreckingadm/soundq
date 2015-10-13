@@ -3,16 +3,23 @@
    <title>SoundQ-JS - Queued audio playback with priority and channel support for the web.</title>
 
    <meta charset="UTF-8">
-   
+
    <link rel="stylesheet" type="text/css" href="reset.css">
+   <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css" href="soundq.css">
 <head>
 </head>
 
 <body>
-   <!-- TODO -->
+   <!-- Quick button test for now -->
+   <a id="audio_play" class="button">Test Audio</a>
+   <audio id="audio_demo" preload="none">
+      <source src="src/rl_short.m4a" type="audio/mp4">
+      <!-- NOTE MP3 has the same support as MP4 and is no longer needed... <source src="src/rl_short.mp3" type="audio/mpeg">-->
+      <source src="src/rl_short.ogg" type="audio/ogg">
+   </audio>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="soundq.js"></script>
+<script src="../soundq.js"></script>
 </html>
