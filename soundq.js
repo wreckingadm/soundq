@@ -28,57 +28,16 @@ SOUNDQ.acontext = null;
  */
 $( document ).ready( function()
 {
-  // Create an Audio Context if Web Audio is supported
-  if (typeof AudioContext !== "undefined")
-  {
-    SOUNDQ.acontext = new AudioContext();
+  try {
+    window.AudioContext = window.AudioContext||window.webkitAudioContext;
+    SOUNDQ.acontext = new window.AudioContext();
     SOUNDQ.useWebAudio = true;
 
-    console.log( "Web Audio API is supported via AudioContext." );
-  }
-  else if (typeof webkitAudioContext !== "undefined")
-  {
-    SOUNDQ.acontext = new webkitAudioContext();
-    SOUNDQ.useWebAudio = true;
-
-    console.log( "Web Audio API is supported via webkitAudioContext." );
-  }
-  else
-  {
-    SOUNDQ.useWebAudio = false;
-
-    //Setup button
-    $( '#audio_play' ).text( 'Play HTML5 Sound' );
-    $( '#audio_play' ).click( function() {
-      console.log( "Playing HTML5 sound." );
-      $( '#audio_play' ).text( 'Playing HTML5 Sound' );
-      $( '#audio_demo' ).trigger( 'play' );
-      //$( '#audio_demo' ).trigger( 'load' );
-    });
-
-    console.log( "Web Audio API is not supported in this browser. Reverting to HTML5." );
-  }
-
-  if ( SOUNDQ.useWebAudio )
-  {
     //Setup button
     $( '#audio_play' ).text( 'Play Web Audio Sound' );
     $( '#audio_play' ).click( function() {
       console.log( "Playing Web Audio sound." );
       $( '#audio_play' ).text( 'Playing Web Audio Sound' );
-      startSound();
-    });
-  }
-  /*
-  try {
-    window.AudioContext = window.AudioContext||window.webkitAudioContext;
-    SOUNDQ.acontext = new AudioContext();
-    SOUNDQ.useWebAudio = true;
-
-    //Setup button
-    $( '#audio_play' ).text( 'Play Web Audio Sound' );
-    $( '#audio_play' ).click( function() {
-      console.log( "Playing Web Audio sound." );
       startSound();
     });
 
@@ -91,13 +50,14 @@ $( document ).ready( function()
     $( '#audio_play' ).text( 'Play HTML5 Sound' );
     $( '#audio_play' ).click( function() {
       console.log( "Playing HTML5 sound." );
+      $( '#audio_play' ).text( 'Playing HTML5 Sound' );
       $( '#audio_demo' ).trigger( 'play' );
       //$( '#audio_demo' ).trigger( 'load' );
     });
 
     console.log( "Web Audio API is not supported in this browser. Reverting to HTML5." );
+    alert( "Web Audio API is not supported in this browser. Reverting to HTML5." );
   }
-  */
 
   $(document).on("click", "a", function(event) {
     event.preventDefault();
@@ -126,9 +86,7 @@ $( document ).ready( function()
       request.onload = function() {
           var audioData = request.response;
 
-          audioGraph(audioData);
-
-
+          audioGraph( audioData );
       };
 
       request.send();
@@ -137,7 +95,7 @@ $( document ).ready( function()
   // Finally: tell the source when to start
   function playSound() {
       // play the source now
-      soundSource.start(SOUNDQ.acontext.currentTime);
+      soundSource.start( SOUNDQ.acontext.currentTime );
   }
 
   function stopSound() {
@@ -146,16 +104,16 @@ $( document ).ready( function()
   }
 
   // This is the code we are interested in:
-  function audioGraph(audioData) {
+  function audioGraph( audioData ) {
       soundSource = SOUNDQ.acontext.createBufferSource();
-      SOUNDQ.acontext.decodeAudioData(audioData, function(soundBuffer){
+      SOUNDQ.acontext.decodeAudioData( audioData, function( soundBuffer ){
           soundSource.buffer = soundBuffer;
 
           // Wiring
-          soundSource.connect(SOUNDQ.acontext.destination);
+          soundSource.connect( SOUNDQ.acontext.destination );
 
           // Finally
-          playSound(soundSource);
+          playSound( soundSource );
       });
   }
 
