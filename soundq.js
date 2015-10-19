@@ -8,7 +8,7 @@
 
 //myApplication || (myApplication = {});
 var SOUNDQ =          SOUNDQ || {};
-SOUNDQ.Sound =    SOUNDQ.Sound || {};
+SOUNDQ.Sound =        SOUNDQ.Sound || {};
 //SOUNDQ.Queue =    SOUNDQ.Queue || {};
 //SOUNDQ.Channel =  SOUNDQ.Channel || {};
 
