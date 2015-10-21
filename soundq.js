@@ -30,6 +30,7 @@ $( document ).ready( function()
 {
   try {
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
+    //window.audioContext = new window.AudioContext();
     SOUNDQ.acontext = new window.AudioContext();
     SOUNDQ.useWebAudio = true;
 
@@ -39,6 +40,7 @@ $( document ).ready( function()
       console.log( "Playing Web Audio sound." );
       $( '#audio_play' ).text( 'Playing Web Audio Sound' );
       startSound();
+      //blastSound.play();
     });
 
     console.log( "Web Audio API is supported." );
@@ -73,72 +75,60 @@ $( document ).ready( function()
 
 
 //http://creativejs.com/resources/web-audio-api-getting-started/
-  var soundSource, soundBuffer, url = 'src/rl_short.m4a';
+var soundSource, soundBuffer, url = 'src/rl_short.m4a';
+//var blastSound, backgroundMusic;
+//blastSound = new WebAudioAPISound("src/rl_short.m4a");
 
-  // Step 2: Load our Sound using XHR
-  function startSound() {
-      // Note: this loads asynchronously
-      var request = new XMLHttpRequest();
-      request.open("GET", url, true);
-      request.responseType = "arraybuffer";
+// Step 2: Load our Sound using XHR
+function startSound() {
+    // Note: this loads asynchronously
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.responseType = "arraybuffer";
 
-      // Our asynchronous callback
-      request.onload = function() {
-          var audioData = request.response;
+    // Our asynchronous callback
+    request.onload = function() {
+        var audioData = request.response;
 
-          audioGraph( audioData );
-      };
+        audioGraph( audioData );
+        // Asynchronously decode the audio file data in request.response
+        // self.context.decodeAudioData( request.response, function (buffer) {
+        //   if (!buffer) {
+        //     alert('error decoding file data: ' + url);
+        //     return;
+        //   }
+        //   self.bufferList[url] = buffer;
+        // });
+    };
 
-      request.send();
-  }
+    // request.onerror = function () {
+    //   alert('BufferLoader: XHR error');
+    // };
 
-  // Finally: tell the source when to start
-  function playSound() {
-      // play the source now
-      soundSource.start( SOUNDQ.acontext.currentTime );
-  }
+    request.send();
+}
 
-  function stopSound() {
-      // stop the source now
-      soundSource.stop(SOUNDQ.acontext.currentTime);
-  }
+// Finally: tell the source when to start
+function playSound() {
+    // play the source now
+    soundSource.start( SOUNDQ.acontext.currentTime );
+}
 
-  // This is the code we are interested in:
-  function audioGraph( audioData ) {
-      soundSource = SOUNDQ.acontext.createBufferSource();
-      SOUNDQ.acontext.decodeAudioData( audioData, function( soundBuffer ){
-          soundSource.buffer = soundBuffer;
+function stopSound() {
+    // stop the source now
+    soundSource.stop(SOUNDQ.acontext.currentTime);
+}
 
-          // Wiring
-          soundSource.connect( SOUNDQ.acontext.destination );
+// This is the code we are interested in:
+function audioGraph( audioData ) {
+    soundSource = SOUNDQ.acontext.createBufferSource();
+    SOUNDQ.acontext.decodeAudioData( audioData, function( soundBuffer ){
+        soundSource.buffer = soundBuffer;
 
-          // Finally
-          playSound( soundSource );
-      });
-  }
+        // Wiring
+        soundSource.connect( SOUNDQ.acontext.destination );
 
-
-
-  
-/*
-$( '#audio_html5_play' ).click( function() {
-  if ( !SOUNDQ.useWebAudio )
-  {
-    $( '#audio_demo' ).trigger( 'play' );
-    //$( '#audio_demo' ).trigger( 'load' );
-  }
-});
-
-// Events for the play/stop bottons
-//document.querySelector('.play').addEventListener('click', startSound);
-$( '#audio_webaudio_play' ).click( function() {
-  if ( SOUNDQ.useWebAudio )
-  {
-    startSound();
-  }
-});
-
-$( "#audio_demo" ).bind( "load", function() {
-  //$( '#audio_demo' ).trigger( 'play' );
-});
-*/
+        // Finally
+        playSound( soundSource );
+    });
+}
