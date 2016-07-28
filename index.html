@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>
    <title>SoundQ-JS - Queued audio playback with priority and channel support for the web.</title>
 
    <meta charset="UTF-8">
@@ -7,18 +8,15 @@
    <link rel="stylesheet" type="text/css" href="reset.css">
    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css" href="soundq.css">
-<head>
 </head>
 
 <body>
    <!-- Quick button test for now -->
-   <a id="audio_play" class="button" href>Play Audio</a>
+   <a id="audio_play" class="button">Play Audio</a>
    <audio id="audio_demo" preload="none">
       <source src="src/rl_short.m4a" type="audio/mp4">
       <source src="src/rl_short.ogg" type="audio/ogg">
    </audio>
-
-</body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
@@ -182,4 +180,7 @@ $(document).on("click", "a", function(event) {
  */
 });
 </script
+
+</body>
+
 </html>
