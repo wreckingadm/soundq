@@ -14,8 +14,8 @@
    <!-- Quick button test for now -->
    <a id="audio_play" class="button">Play Audio</a>
    <audio id="audio_demo" preload="none">
-      <source src="src/rl_short.m4a" type="audio/mp4">
-      <source src="src/rl_short.ogg" type="audio/ogg">
+      <source src="http://playground.wreckreation.org.s3-website-us-east-1.amazonaws.com/soundq-js/test/rl_short.m4a" type="audio/mp4">
+      <source src="http://playground.wreckreation.org.s3-website-us-east-1.amazonaws.com/soundq-js/test/rl_short.ogg" type="audio/ogg">
    </audio>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -151,7 +151,7 @@ WebAudioAPISound.prototype = {
 
 var blastSound, backgroundMusic;
 
-blastSound = new WebAudioAPISound("src/rl_short.m4a");
+blastSound = new WebAudioAPISound("http://playground.wreckreation.org.s3-website-us-east-1.amazonaws.com/soundq-js/test/rl_short.m4a");
 //backgroundMusic = new WebAudioAPISound("smooth-jazz.mp3", {loop: true});
 
 //backgroundMusic.play();
