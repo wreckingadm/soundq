@@ -1,0 +1,59 @@
+/*********************************************************/
+/* SoundQ
+ * © 2015 BOXdev.com
+ * Queued audio playback with priority and channel support for the web
+ * https://github.com/wreckingadm/soundq-js
+ *
+ * Copyright 2015 BOXdev.com, wreckreation.org
+/*********************************************************/
+
+
+/*********************************************************/
+/* Globals
+/*********************************************************/
+body {
+   background-color: #fff;
+   margin: 40px;
+}
+
+a {
+   text-decoration: none;
+}
+
+.button {
+   background: #ffffff;
+   background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+   background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+   background-image: -ms-linear-gradient(top, #ffffff, #eeeeee);
+   background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+   background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
+
+   font-size: 1.2em;
+   font-family: 'Lora', serif;
+   font-style: italic;
+   font-weight: bold;
+   text-decoration: none;
+   color: #666;
+
+   border: 1px solid #666;
+   -webkit-border-radius: 8;
+   -moz-border-radius: 8;
+   border-radius: 8px;
+   -webkit-box-shadow: 1px 1px 0px #dddddd;
+   -moz-box-shadow: 1px 1px 0px #dddddd;
+   box-shadow: 1px 1px 0px #dddddd;
+
+   padding: 4px 12px;
+   margin: 6px;
+}
+
+.button:hover {
+   background: #eeeeee;
+   background-image: -webkit-linear-gradient(top, #eeeeee, #ffffff);
+   background-image: -moz-linear-gradient(top, #eeeeee, #ffffff);
+   background-image: -ms-linear-gradient(top, #eeeeee, #ffffff);
+   background-image: -o-linear-gradient(top, #eeeeee, #ffffff);
+   background-image: linear-gradient(to bottom, #eeeeee, #ffffff);
+
+   text-decoration: none;
+}

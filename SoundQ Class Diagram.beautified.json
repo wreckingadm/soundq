@@ -1,0 +1,1148 @@
+{
+    "name": "SoundQ",
+    "master": true,
+    "subsystem": false,
+    "version": "0.0.1",
+    "description": "Queued audio playback with priority and channel support for the web.",
+    "schemas": {
+        "15b7a1926e1e380": {
+            "_id": "15b7a1926e1e380",
+            "_name": "SoundFile",
+            "uri": "property",
+            "start": "property",
+            "end": "property",
+            "length": "property",
+            "channels": "property",
+            "bitrate": "property",
+            "samplerate": "property",
+            "coding": "property",
+            "container": "property",
+            "maxvolume": "property",
+            "tags": "collection"
+        },
+        "124f41edec189cd": {
+            "_id": "124f41edec189cd",
+            "_name": "SoundObject",
+            "_inherit": [ "SoundPlayer" ],
+            "soundfile": "property",
+            "captions": "property"
+        },
+        "10fa21ba181db9f": {
+            "_id": "10fa21ba181db9f",
+            "_name": "SoundGroup",
+            "_inherit": [ "SoundPlayer" ],
+            "soundlist": "collection",
+            "get": "method",
+            "getNext": "method",
+            "getPrevious": "method",
+            "getIndex": "method",
+            "getRandom": "method",
+            "getAnotherRandom": "method",
+            "play": "method",
+            "playNext": "method",
+            "playPrevious": "method",
+            "playIndex": "method",
+            "playRandom": "method",
+            "playAnotherRandom": "method"
+        },
+        "1372a14350144ca": {
+            "_id": "1372a14350144ca",
+            "_name": "SoundQueue",
+            "queue": "collection",
+            "priority": "property",
+            "playing": "property",
+            "paused": "property",
+            "isPlaying": "method",
+            "play": "method",
+            "stop": "method",
+            "isPaused": "method",
+            "pause": "method",
+            "resume": "method",
+            "onStartPlayback": "event",
+            "onFinishPlayback": "event",
+            "onPause": "event",
+            "onResume": "event"
+        },
+        "10ae21ffc91dbf4": {
+            "_id": "10ae21ffc91dbf4",
+            "_name": "SoundLoader"
+        },
+        "1e843182d01ef2f": {
+            "_id": "1e843182d01ef2f",
+            "_name": "SoundChannel",
+            "volume": "property",
+            "priority": "property",
+            "duckvolume": "property",
+            "playing": "property",
+            "muted": "property",
+            "soloed": "property",
+            "ducked": "property",
+            "muteChannel": "method",
+            "unMuteChannel": "method",
+            "soloChannel": "method",
+            "unSoloChannel": "method",
+            "duckChannel": "method",
+            "unDuckChannel": "method",
+            "isChannelPlaying": "method"
+        },
+        "1c02a1c2e012206": {
+            "_id": "1c02a1c2e012206",
+            "_name": "SoundQ",
+            "version": "property",
+            "volume": "property",
+            "duckvolume": "property",
+            "init": "method",
+            "duckAll": "method",
+            "unDuckAll": "method",
+            "isPlaying": "method",
+            "pauseAll": "method",
+            "resumeAll": "method",
+            "stopAll": "method"
+        },
+        "1f7d51e4ed12f6f": {
+            "_id": "1f7d51e4ed12f6f",
+            "_name": "SoundPlayer",
+            "volume": "property",
+            "priority": "property",
+            "channel": "property",
+            "playhead": "property",
+            "playing": "property",
+            "paused": "property",
+            "isPlaying": "method",
+            "play": "method",
+            "stop": "method",
+            "isPaused": "method",
+            "pause": "method",
+            "resume": "method",
+            "onStartPlayback": "event",
+            "onFinishPlayback": "event",
+            "onPause": "event",
+            "onResume": "event"
+        }
+    },
+    "models": {
+        "1c565160791eb38": {
+            "_id": "1c565160791eb38",
+            "_name": "SoundFile",
+            "uri": {
+                "type": "string",
+                "readOnly": true,
+                "mandatory": true,
+                "default": null
+            },
+            "start": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": true,
+                "default": 0
+            },
+            "end": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": true,
+                "default": 0
+            },
+            "length": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": true,
+                "default": 0
+            },
+            "maxvolume": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": false,
+                "default": null
+            },
+            "channels": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": true,
+                "default": 1
+            },
+            "bitrate": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": false,
+                "default": null
+            },
+            "samplerate": {
+                "type": "number",
+                "readOnly": true,
+                "mandatory": false,
+                "default": null
+            },
+            "coding": {
+                "type": "string",
+                "readOnly": true,
+                "mandatory": true,
+                "default": null
+            },
+            "container": {
+                "type": "string",
+                "readOnly": true,
+                "mandatory": false,
+                "default": null
+            },
+            "tags": {
+                "type": [ "string" ],
+                "readOnly": true,
+                "mandatory": false,
+                "default": []
+            }
+        },
+        "121d413f4d1ee36": {
+            "_id": "121d413f4d1ee36",
+            "_name": "SoundObject",
+            "soundfile": {
+                "type": "@SoundFile",
+                "readOnly": false,
+                "mandatory": true,
+                "default": null
+            },
+            "captions": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            }
+        },
+        "1a9a31925918301": {
+            "_id": "1a9a31925918301",
+            "_name": "SoundGroup",
+            "getRandom": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "getNext": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "getPrevious": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "getIndex": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "soundlist": {
+                "type": [ "@RuntimeComponent" ],
+                "readOnly": false,
+                "mandatory": false,
+                "default": []
+            },
+            "get": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "play": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "playNext": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "playPrevious": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "playIndex": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "playRandom": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "getAnotherRandom": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "playAnotherRandom": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            }
+        },
+        "1879e16451108d4": {
+            "_id": "1879e16451108d4",
+            "_name": "SoundQueue",
+            "queue": {
+                "type": [ "@SoundQueueObject" ],
+                "readOnly": false,
+                "mandatory": false,
+                "default": []
+            },
+            "pause": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "resume": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "priority": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "playing": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "paused": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "isPlaying": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "play": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "stop": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "isPaused": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "onStartPlayback": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "onFinishPlayback": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "onPause": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "onResume": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            }
+        },
+        "14f4f16ad7152ca": {
+            "_id": "14f4f16ad7152ca",
+            "_name": "SoundLoader"
+        },
+        "13ffd1ccf11620a": {
+            "_id": "13ffd1ccf11620a",
+            "_name": "SoundChannel",
+            "volume": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "priority": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "muteChannel": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "unMuteChannel": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "soloChannel": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "unSoloChannel": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "isChannelPlaying": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "duckvolume": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "duckChannel": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "unDuckChannel": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "muted": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "soloed": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "ducked": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "playing": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            }
+        },
+        "147121e4951f239": {
+            "_id": "147121e4951f239",
+            "_name": "SoundQ",
+            "version": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "volume": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "duckvolume": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "duckAll": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "unDuckAll": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "isPlaying": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "pauseAll": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "resumeAll": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "stopAll": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "init": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            }
+        },
+        "13cee1b5bc1b645": {
+            "_id": "13cee1b5bc1b645",
+            "_name": "SoundPlayer",
+            "volume": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "priority": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "playhead": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "playing": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "paused": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            },
+            "isPlaying": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "play": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "stop": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "isPaused": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "pause": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "onStartPlayback": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "onFinishPlayback": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "onPause": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "resume": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ],
+                "result": "string"
+            },
+            "onResume": {
+                "params": [ {
+                    "name": "param",
+                    "type": "string",
+                    "mandatory": false,
+                    "default": ""
+                } ]
+            },
+            "channel": {
+                "type": "any",
+                "readOnly": false,
+                "mandatory": false,
+                "default": null
+            }
+        }
+    },
+    "behaviors": {
+        "11f4b1018f18b37": {
+            "_id": "11f4b1018f18b37",
+            "component": "1a7b71f21d162f4",
+            "state": "main",
+            "action": "function main() { \n	\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "10d501935a1e9a3": {
+            "_id": "10d501935a1e9a3",
+            "component": "SoundGroup",
+            "state": "getRandom",
+            "action": "function getRandom(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "15a571a47f1a26a": {
+            "_id": "15a571a47f1a26a",
+            "component": "SoundGroup",
+            "state": "getNext",
+            "action": "function getNext(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "137ec11ff110a23": {
+            "_id": "137ec11ff110a23",
+            "component": "SoundGroup",
+            "state": "getPrevious",
+            "action": "function getPrevious(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1f3fc1472a15673": {
+            "_id": "1f3fc1472a15673",
+            "component": "SoundGroup",
+            "state": "getIndex",
+            "action": "function getIndex(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "12c9e1801e16b52": {
+            "_id": "12c9e1801e16b52",
+            "component": "SoundChannel",
+            "state": "muteChannel",
+            "action": "function muteChannel(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1b8c6174ea1af25": {
+            "_id": "1b8c6174ea1af25",
+            "component": "SoundChannel",
+            "state": "unMuteChannel",
+            "action": "function unMuteChannel(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "190b916e36107f4": {
+            "_id": "190b916e36107f4",
+            "component": "SoundChannel",
+            "state": "soloChannel",
+            "action": "function soloChannel(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "14f37184af1af1f": {
+            "_id": "14f37184af1af1f",
+            "component": "SoundChannel",
+            "state": "unSoloChannel",
+            "action": "function unSoloChannel(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1850c1f2dd15c99": {
+            "_id": "1850c1f2dd15c99",
+            "component": "SoundChannel",
+            "state": "isChannelPlaying",
+            "action": "function isChannelPlaying(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1288a1c5801f0cd": {
+            "_id": "1288a1c5801f0cd",
+            "component": "SoundChannel",
+            "state": "duckChannel",
+            "action": "function duckChannel(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "13adf1bc9f159f1": {
+            "_id": "13adf1bc9f159f1",
+            "component": "SoundChannel",
+            "state": "unDuckChannel",
+            "action": "function unDuckChannel(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1324910eb31696d": {
+            "_id": "1324910eb31696d",
+            "component": "SoundGroup",
+            "state": "get",
+            "action": "function get(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1b67c1953f1db72": {
+            "_id": "1b67c1953f1db72",
+            "component": "SoundGroup",
+            "state": "play",
+            "action": "function play(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1de2e1840b172fa": {
+            "_id": "1de2e1840b172fa",
+            "component": "SoundGroup",
+            "state": "playNext",
+            "action": "function playNext(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1eebf1ba4813615": {
+            "_id": "1eebf1ba4813615",
+            "component": "SoundGroup",
+            "state": "playPrevious",
+            "action": "function playPrevious(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "15e841036c11d80": {
+            "_id": "15e841036c11d80",
+            "component": "SoundGroup",
+            "state": "playIndex",
+            "action": "function playIndex(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "14f7319bd110cab": {
+            "_id": "14f7319bd110cab",
+            "component": "SoundGroup",
+            "state": "playRandom",
+            "action": "function playRandom(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1a8d61081c1c6a5": {
+            "_id": "1a8d61081c1c6a5",
+            "component": "SoundGroup",
+            "state": "getAnotherRandom",
+            "action": "function getAnotherRandom(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1349e1e2d814807": {
+            "_id": "1349e1e2d814807",
+            "component": "SoundGroup",
+            "state": "playAnotherRandom",
+            "action": "function playAnotherRandom(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1861b190191e9b9": {
+            "_id": "1861b190191e9b9",
+            "component": "SoundPlayer",
+            "state": "isPlaying",
+            "action": "function isPlaying(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "13513117cb18c30": {
+            "_id": "13513117cb18c30",
+            "component": "SoundPlayer",
+            "state": "play",
+            "action": "function play(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1a2a5157ab14046": {
+            "_id": "1a2a5157ab14046",
+            "component": "SoundPlayer",
+            "state": "stop",
+            "action": "function stop(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "172a91b56f16924": {
+            "_id": "172a91b56f16924",
+            "component": "SoundPlayer",
+            "state": "isPaused",
+            "action": "function isPaused(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1fc6611de11c827": {
+            "_id": "1fc6611de11c827",
+            "component": "SoundPlayer",
+            "state": "pause",
+            "action": "function pause(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1f11b15a4613811": {
+            "_id": "1f11b15a4613811",
+            "component": "SoundPlayer",
+            "state": "onStartPlayback",
+            "action": "function onStartPlayback(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "162731d09f1ae77": {
+            "_id": "162731d09f1ae77",
+            "component": "SoundPlayer",
+            "state": "onFinishPlayback",
+            "action": "function onFinishPlayback(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "14341131e31e395": {
+            "_id": "14341131e31e395",
+            "component": "SoundPlayer",
+            "state": "onPause",
+            "action": "function onPause(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "134561299715e99": {
+            "_id": "134561299715e99",
+            "component": "SoundQ",
+            "state": "duckAll",
+            "action": "function duckAll(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1a47b1e6a01d679": {
+            "_id": "1a47b1e6a01d679",
+            "component": "SoundQ",
+            "state": "unDuckAll",
+            "action": "function unDuckAll(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "17fe71d3c01412c": {
+            "_id": "17fe71d3c01412c",
+            "component": "SoundQ",
+            "state": "isPlaying",
+            "action": "function isPlaying(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1a0e01d38417c4d": {
+            "_id": "1a0e01d38417c4d",
+            "component": "SoundQ",
+            "state": "pauseAll",
+            "action": "function pauseAll(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "17b861b1441505a": {
+            "_id": "17b861b1441505a",
+            "component": "SoundQ",
+            "state": "resumeAll",
+            "action": "function resumeAll(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "16c6a1ffe418bab": {
+            "_id": "16c6a1ffe418bab",
+            "component": "SoundQ",
+            "state": "stopAll",
+            "action": "function stopAll(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "14d1919a351bfed": {
+            "_id": "14d1919a351bfed",
+            "component": "SoundPlayer",
+            "state": "resume",
+            "action": "function resume(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1b3d81ad2b187ec": {
+            "_id": "1b3d81ad2b187ec",
+            "component": "SoundPlayer",
+            "state": "onResume",
+            "action": "function onResume(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1b3ce1858f1c4ee": {
+            "_id": "1b3ce1858f1c4ee",
+            "component": "SoundQueue",
+            "state": "pause",
+            "action": "function pause(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1a410103ee1ca1e": {
+            "_id": "1a410103ee1ca1e",
+            "component": "SoundQueue",
+            "state": "resume",
+            "action": "function resume(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "175ea175f218efd": {
+            "_id": "175ea175f218efd",
+            "component": "SoundQueue",
+            "state": "isPlaying",
+            "action": "function isPlaying(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "15bb21d9f612fdf": {
+            "_id": "15bb21d9f612fdf",
+            "component": "SoundQueue",
+            "state": "play",
+            "action": "function play(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "11f571e4d31648e": {
+            "_id": "11f571e4d31648e",
+            "component": "SoundQueue",
+            "state": "stop",
+            "action": "function stop(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "16cc31fc8f1673a": {
+            "_id": "16cc31fc8f1673a",
+            "component": "SoundQueue",
+            "state": "isPaused",
+            "action": "function isPaused(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "17e70197a61dfff": {
+            "_id": "17e70197a61dfff",
+            "component": "SoundQueue",
+            "state": "onStartPlayback",
+            "action": "function onStartPlayback(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "120f912b701deb4": {
+            "_id": "120f912b701deb4",
+            "component": "SoundQueue",
+            "state": "onFinishPlayback",
+            "action": "function onFinishPlayback(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "1ec2c1141a1d66c": {
+            "_id": "1ec2c1141a1d66c",
+            "component": "SoundQueue",
+            "state": "onPause",
+            "action": "function onPause(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "17078186771e1b5": {
+            "_id": "17078186771e1b5",
+            "component": "SoundQueue",
+            "state": "onResume",
+            "action": "function onResume(param) { \n}",
+            "useCoreAPI": false,
+            "core": false
+        },
+        "190f512af11b01b": {
+            "_id": "190f512af11b01b",
+            "component": "SoundQ",
+            "state": "init",
+            "action": "function init(param) { \n	var result = '';\n	return result;\n}",
+            "useCoreAPI": false,
+            "core": false
+        }
+    },
+    "types": {},
+    "components": {},
+    "_id": "1a7b71f21d162f4"
+}
