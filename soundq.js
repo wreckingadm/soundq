@@ -6,7 +6,6 @@
  * Copyright 2015 BOXdev.com, wreckreation.org
  */
 
-//myApplication || (myApplication = {});
 var SOUNDQ =          SOUNDQ || {};
 SOUNDQ.Sound =        SOUNDQ.Sound || {};
 //SOUNDQ.Queue =    SOUNDQ.Queue || {};
@@ -111,6 +110,7 @@ function startSound() {
 // Finally: tell the source when to start
 function playSound() {
     // play the source now
+    //TODO: Need to separate loading from playing
     soundSource.start( SOUNDQ.acontext.currentTime );
 }
 
