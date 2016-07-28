@@ -1,7 +1,7 @@
 {
     "name": "SoundQ",
     "master": true,
-    "subsystem": false,
+    "subsystem": true,
     "version": "0.0.1",
     "description": "Queued audio playback with priority and channel support for the web.",
     "schemas": {
@@ -73,7 +73,6 @@
             "volume": "property",
             "priority": "property",
             "duckvolume": "property",
-            "playing": "property",
             "muted": "property",
             "soloed": "property",
             "ducked": "property",
@@ -201,7 +200,7 @@
                 "default": null
             },
             "captions": {
-                "type": "any",
+                "type": "string",
                 "readOnly": false,
                 "mandatory": false,
                 "default": null
@@ -447,109 +446,70 @@
             "_id": "13ffd1ccf11620a",
             "_name": "SoundChannel",
             "volume": {
-                "type": "any",
+                "type": "number",
                 "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "mandatory": true,
+                "default": 1
             },
             "priority": {
-                "type": "any",
+                "type": "number",
                 "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "mandatory": true,
+                "default": .9
             },
             "muteChannel": {
                 "params": [ {
-                    "name": "param",
-                    "type": "string",
+                    "name": "mute",
+                    "type": "boolean",
                     "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                    "default": "true"
+                } ]
             },
-            "unMuteChannel": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
-            },
+            "unMuteChannel": {},
             "soloChannel": {
                 "params": [ {
-                    "name": "param",
-                    "type": "string",
+                    "name": "solo",
+                    "type": "boolean",
                     "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                    "default": "true"
+                } ]
             },
-            "unSoloChannel": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
-            },
+            "unSoloChannel": {},
             "isChannelPlaying": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                "result": "boolean"
             },
             "duckvolume": {
-                "type": "any",
+                "type": "number",
                 "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "mandatory": true,
+                "default": .85
             },
             "duckChannel": {
                 "params": [ {
-                    "name": "param",
-                    "type": "string",
+                    "name": "duck",
+                    "type": "boolean",
                     "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                    "default": "true"
+                } ]
             },
-            "unDuckChannel": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
-            },
+            "unDuckChannel": {},
             "muted": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "type": "boolean",
+                "readOnly": true,
+                "mandatory": true,
+                "default": false
             },
             "soloed": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "type": "boolean",
+                "readOnly": true,
+                "mandatory": true,
+                "default": false
             },
             "ducked": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
-            },
-            "playing": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "type": "boolean",
+                "readOnly": true,
+                "mandatory": true,
+                "default": false
             }
         },
         "147121e4951f239": {
@@ -641,79 +601,67 @@
             "_id": "13cee1b5bc1b645",
             "_name": "SoundPlayer",
             "volume": {
-                "type": "any",
+                "type": "number",
                 "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "mandatory": true,
+                "default": 1
             },
             "priority": {
-                "type": "any",
+                "type": "number",
                 "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "mandatory": true,
+                "default": .9
             },
             "playhead": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "type": "number",
+                "readOnly": true,
+                "mandatory": true,
+                "default": 0
             },
             "playing": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "type": "boolean",
+                "readOnly": true,
+                "mandatory": true,
+                "default": false
             },
             "paused": {
-                "type": "any",
-                "readOnly": false,
-                "mandatory": false,
-                "default": null
+                "type": "boolean",
+                "readOnly": true,
+                "mandatory": true,
+                "default": false
             },
             "isPlaying": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                "result": "boolean"
             },
             "play": {
                 "params": [ {
-                    "name": "param",
-                    "type": "string",
+                    "name": "channel",
+                    "type": "@SoundChannel",
+                    "mandatory": true,
+                    "default": ""
+                }, {
+                    "name": "volume",
+                    "type": "number",
                     "mandatory": false,
                     "default": ""
-                } ],
-                "result": "string"
-            },
-            "stop": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
+                }, {
+                    "name": "priority",
+                    "type": "number",
                     "mandatory": false,
                     "default": ""
-                } ],
-                "result": "string"
+                } ]
             },
+            "stop": {},
             "isPaused": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                "result": "boolean"
             },
             "pause": {
                 "params": [ {
-                    "name": "param",
-                    "type": "string",
+                    "name": "pause",
+                    "type": "boolean",
                     "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
+                    "default": "true"
+                } ]
             },
             "onStartPlayback": {
                 "params": [ {
@@ -739,15 +687,7 @@
                     "default": ""
                 } ]
             },
-            "resume": {
-                "params": [ {
-                    "name": "param",
-                    "type": "string",
-                    "mandatory": false,
-                    "default": ""
-                } ],
-                "result": "string"
-            },
+            "resume": {},
             "onResume": {
                 "params": [ {
                     "name": "param",
@@ -757,7 +697,7 @@
                 } ]
             },
             "channel": {
-                "type": "any",
+                "type": "@SoundChannel",
                 "readOnly": false,
                 "mandatory": false,
                 "default": null
@@ -809,7 +749,7 @@
             "_id": "12c9e1801e16b52",
             "component": "SoundChannel",
             "state": "muteChannel",
-            "action": "function muteChannel(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function muteChannel(mute) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -817,7 +757,7 @@
             "_id": "1b8c6174ea1af25",
             "component": "SoundChannel",
             "state": "unMuteChannel",
-            "action": "function unMuteChannel(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function unMuteChannel(mute) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -825,7 +765,7 @@
             "_id": "190b916e36107f4",
             "component": "SoundChannel",
             "state": "soloChannel",
-            "action": "function soloChannel(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function soloChannel(solo) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -833,7 +773,7 @@
             "_id": "14f37184af1af1f",
             "component": "SoundChannel",
             "state": "unSoloChannel",
-            "action": "function unSoloChannel(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function unSoloChannel(solo) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -841,7 +781,7 @@
             "_id": "1850c1f2dd15c99",
             "component": "SoundChannel",
             "state": "isChannelPlaying",
-            "action": "function isChannelPlaying(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function isChannelPlaying(duck) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -849,7 +789,7 @@
             "_id": "1288a1c5801f0cd",
             "component": "SoundChannel",
             "state": "duckChannel",
-            "action": "function duckChannel(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function duckChannel(duck) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -857,7 +797,7 @@
             "_id": "13adf1bc9f159f1",
             "component": "SoundChannel",
             "state": "unDuckChannel",
-            "action": "function unDuckChannel(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function unDuckChannel(duck) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -929,7 +869,7 @@
             "_id": "1861b190191e9b9",
             "component": "SoundPlayer",
             "state": "isPlaying",
-            "action": "function isPlaying(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function isPlaying() { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -937,7 +877,7 @@
             "_id": "13513117cb18c30",
             "component": "SoundPlayer",
             "state": "play",
-            "action": "function play(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function play(channel, volume, priority) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -945,7 +885,7 @@
             "_id": "1a2a5157ab14046",
             "component": "SoundPlayer",
             "state": "stop",
-            "action": "function stop(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function stop(channel, volume, priority) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -953,7 +893,7 @@
             "_id": "172a91b56f16924",
             "component": "SoundPlayer",
             "state": "isPaused",
-            "action": "function isPaused(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function isPaused(channel, volume, priority) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -961,7 +901,7 @@
             "_id": "1fc6611de11c827",
             "component": "SoundPlayer",
             "state": "pause",
-            "action": "function pause(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function pause(pause) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
@@ -1041,7 +981,7 @@
             "_id": "14d1919a351bfed",
             "component": "SoundPlayer",
             "state": "resume",
-            "action": "function resume(param) { \n	var result = '';\n	return result;\n}",
+            "action": "function resume(pause) { \n	var result = '';\n	return result;\n}",
             "useCoreAPI": false,
             "core": false
         },
