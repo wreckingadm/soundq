@@ -1,6 +1,8 @@
 // SOUNDQ must exist as a singleton
 var SOUNDQ = SOUNDQ || {};
 
+//TODO: Move this to a class within the namespace for private variables?
+
 // This is mostly indended to be read only
 SOUNDQ.core = {
 	version: "0.0.1",
@@ -8,6 +10,8 @@ SOUNDQ.core = {
 	// Default properties
 	volume: 1.0,
 	duckvolume: 0.85,
+	pause: false,
+	playing: false,
 
 	// User capabilities
 	webaudio: true,
@@ -25,42 +29,51 @@ SOUNDQ.core = {
 	},
 
 	isPlaying: function() {
-		//TODO
+		return this.playing;
 	},
 
-	setVolume: function( volume ) {
-		this.volume = volume;
+	isPaused: function() {
+		return this.pause;
 	},
 
 	setDuckVolume: function( duckvolume ) {
 		this.duckvolume = duckvolume;
 	},
 
-	duckAll: function( duck = true ) {
+	duckAll: function( duck ) {
+		duck = typeof duck !== "undefined" ?  duck : true;
+
 		//TODO
 	},
 
 	unDuckAll: function() {
-		duckAll( false );
+		this.duckAll( false );
 	},
 
-	pauseAll: function( pause = true ) {
+	pauseAll: function( pause ) {
+		pause = typeof pause !== "undefined" ?  pause : true;
+		this.pause = pause;
+
 		//TODO
+		console.log( pause );
 	},
 
 	resumeAll: function() {
-		pauseAll( false );
+		this.pauseAll( false );
 	},
 
 	stopAll: function() {
+
 		//TODO
 	},
 
 	fadeIn: function() {
+
 		//TODO
 	},
 
 	fadeOut: function() {
+
 		//TODO
 	}
 };
