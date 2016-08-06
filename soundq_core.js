@@ -2,10 +2,21 @@
 var SOUNDQ = SOUNDQ || {};
 
 //TODO: Move this to a class within the namespace for private variables?
+var SoundQ = function()
+{
+
+	//TODO
+	console.log( "SoundQ created" );
+	var version = "0.0.1";
+
+	this.getVersion = function()
+	{
+		return version;
+	};
+};
 
 // This is mostly indended to be read only
 SOUNDQ.core = {
-	version: "0.0.1",
 
 	// Default properties
 	volume: 1.0,
@@ -23,7 +34,8 @@ SOUNDQ.core = {
 	 * Initialize the SOUNDQ object.
 	 */
 	init: function() {
-		console.log( "Initializing SOUNDQ at version " + this.version );
+		this.root = new SoundQ();
+		console.log( "Initializing SOUNDQ at version " + this.root.getVersion() );
 
 		//TODO: Determine capabilities
 	},
